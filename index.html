@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة الإخلاص - للنظارات</title>
+
+    <!-- Google Fonts (Cairo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0c1017;
+            color: #f3f4f6;
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a, button {
+            font-family: inherit;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* SPLASH SCREEN */
+        #splash {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            background: #0c1017;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #splash.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d97706;
+            letter-spacing: 2px;
+        }
+
+        /* MAIN CONTAINER & BACKGROUND IMAGE (جاهزة أوتوloاتيك من النت) */
+        #content {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        #content::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+
+        #content::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 16, 23, 0.85); /* طبقة تعتيم فخمة فوق الصورة عشان الكلام يظهر بوضوح */
+            z-index: -1;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 45px 20px 20px;
+            text-align: center;
+        }
+
+        .store-logo {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid rgba(217, 119, 6, 0.5);
+            background: rgba(12, 16, 23, 0.8);
+            color: #d97706;
+            font-size: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .small-title {
+            margin-top: 12px;
+            color: #d97706;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        h1.store-name {
+            margin-top: 5px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .tagline {
+            color: #9ca3af;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* ACTIONS SECTION */
+        .section {
+            padding: 20px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .action-card {
+            width: 100%;
+            min-height: 65px;
+            padding: 12px 18px;
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            border-color: #d97706;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .action-card .icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            border-radius: 50%;
+            color: #d97706;
+            font-size: 16px;
+            background: rgba(217, 119, 6, 0.1);
+        }
+
+        .action-card > span:nth-child(2) {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: right;
+        }
+
+        .action-card strong {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .action-card small {
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        .arrow {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 10px;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        footer span {
+            display: block;
+            margin-top: 5px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        /* MODALS */
+        .modal {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-box {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px 20px 25px;
+            background: #131822;
+            border-top: 1px solid rgba(217, 119, 6, 0.4);
+            border-radius: 24px 24px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        .modal.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: #9ca3af;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d97706;
+            border-radius: 50%;
+            color: #d97706;
+            background: rgba(217, 119, 6, 0.1);
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .modal-item {
+            width: 100%;
+            min-height: 56px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(217, 119, 6, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        .modal-item-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d97706;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            border-radius: 50%;
+            background: rgba(217, 119, 6, 0.1);
+        }
+
+        .modal-item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: right;
+        }
+
+        .modal-item-info strong {
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .modal-item-info span {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .modal-btn-action {
+            padding: 6px 14px;
+            border: 1px solid #d97706;
+            background: #d97706;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash">
+        <div class="splash-content">
+            <div class="splash-title">شركة الإخلاص</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="content">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="store-logo">
+                <i class="fa-solid fa-glasses"></i>
+            </div>
+            <p class="small-title">للنظارات والعدسات</p>
+            <h1 class="store-name">شركة الإخلاص</h1>
+            <p class="tagline">أجود أنواع النظارات الطبية والشمسية</p>
+        </section>
+
+        <!-- ACTIONS SECTION -->
+        <section class="section">
+            <div class="actions">
+
+                <!-- 1. CALL US -->
+                <button type="button" class="action-card" id="callTrigger">
+                    <span class="icon"><i class="fa-solid fa-phone"></i></span>
+                    <span>
+                        <strong>اتصل بنا</strong>
+                        <small>اختر رقماً للمكالمة المباشرة</small>
+                    </span>
+                    <i class="fa-solid fa-chevron-left arrow"></i>
+                </button>
+
+                <!-- 2. WHATSAPP -->
+                <button type="button" class="action-card" id="whatsappTrigger">
+                    <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                    <span>
+                        <strong>تواصل عبر واتساب</strong>
+                        <small>اختر رقماً لمراسلتنا فوراً</small>
+                    </span>
+                    <i class="fa-solid fa-chevron-left arrow"></i>
+                </button>
+
+                <!-- 3. LOCATION -->
+                <a href="https://maps.app.goo.gl/z9L1qDV27npWpeS69" target="_blank" rel="noopener noreferrer" class="action-card">
+                    <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <span>
+                        <strong>موقعنا على الخريطة</strong>
+                        <small>اضغط لفتح العنوان على Google Maps</small>
+                    </span>
+                    <i class="fa-solid fa-chevron-left arrow"></i>
+                </a>
+
+                <!-- 4. FACEBOOK -->
+                <a href="https://www.facebook.com/share/1CRZy6EnPu/" target="_blank" rel="noopener noreferrer" class="action-card">
+                    <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
+                    <span>
+                        <strong>صفحتنا على فيسبوك</strong>
+                        <small>تابع أحدث العروض والنظارات</small>
+                    </span>
+                    <i class="fa-solid fa-chevron-left arrow"></i>
+                </a>
+
+            </div>
+        </section>
+
+       <!-- FOOTER -->
+        <footer>
+       
+            <span style="margin-top: 4px;">Made by Ahmed Eid</span>
+            <a href="https://wa.me/201127248864" target="_blank" rel="noopener noreferrer" class="developer-phone" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; text-decoration: none;">
+                <i class="fa-brands fa-whatsapp" style="color: #d97706; font-size: 14px;"></i>
+                <span style="font-size: 11px; color: #9ca3af;">01127248864</span>
+            </a>
+        </footer>
+    </main>
+
+    <!-- CALL MODAL -->
+    <div id="callModal" class="modal">
+        <div class="modal-overlay" id="callOverlay"></div>
+        <div class="modal-box">
+            <button type="button" class="modal-close" id="callClose"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <div class="modal-icon"><i class="fa-solid fa-phone"></i></div>
+                <h3>اختر الرقم للاتصال</h3>
+            </div>
+
+            <a href="tel:01060050026" class="modal-item">
+                <div class="modal-item-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="modal-item-info">
+                    <strong>الرقم الأول</strong>
+                    <span>01060050026</span>
+                </div>
+                <div class="modal-btn-action">اتصال</div>
+            </a>
+
+            <a href="tel:01158722476" class="modal-item">
+                <div class="modal-item-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="modal-item-info">
+                    <strong>الرقم الثاني</strong>
+                    <span>01158722476</span>
+                </div>
+                <div class="modal-btn-action">اتصال</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- WHATSAPP MODAL -->
+    <div id="whatsappModal" class="modal">
+        <div class="modal-overlay" id="whatsappOverlay"></div>
+        <div class="modal-box">
+            <button type="button" class="modal-close" id="whatsappClose"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <div class="modal-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <h3>اختر الرقم للواتساب</h3>
+            </div>
+
+            <a href="https://wa.me/201060050026" target="_blank" rel="noopener noreferrer" class="modal-item">
+                <div class="modal-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="modal-item-info">
+                    <strong>الرقم الأول (واتساب)</strong>
+                    <span>01060050026</span>
+                </div>
+                <div class="modal-btn-action" style="background: #25d366; border-color: #25d366;">مراسلة</div>
+            </a>
+
+            <a href="https://wa.me/201158722476" target="_blank" rel="noopener noreferrer" class="modal-item">
+                <div class="modal-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="modal-item-info">
+                    <strong>الرقم الثاني (واتساب)</strong>
+                    <span>01158722476</span>
+                </div>
+                <div class="modal-btn-action" style="background: #25d366; border-color: #25d366;">مراسلة</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        window.addEventListener("load", () => {
+            const splash = document.getElementById("splash");
+            if (splash) {
+                setTimeout(() => {
+                    splash.classList.add("hide");
+                    setTimeout(() => { splash.style.display = "none"; }, 500);
+                }, 2000);
+            }
+        });
+
+        const callTrigger = document.getElementById("callTrigger");
+        const callModal = document.getElementById("callModal");
+        const callClose = document.getElementById("callClose");
+        const callOverlay = document.getElementById("callOverlay");
+
+        function openCall() { callModal.classList.add("active"); document.body.style.overflow = "hidden"; }
+        function closeCall() { callModal.classList.remove("active"); document.body.style.overflow = ""; }
+
+        if(callTrigger) callTrigger.addEventListener("click", openCall);
+        if(callClose) callClose.addEventListener("click", closeCall);
+        if(callOverlay) callOverlay.addEventListener("click", closeCall);
+
+        const whatsappTrigger = document.getElementById("whatsappTrigger");
+        const whatsappModal = document.getElementById("whatsappModal");
+        const whatsappClose = document.getElementById("whatsappClose");
+        const whatsappOverlay = document.getElementById("whatsappOverlay");
+
+        function openWhatsapp() { whatsappModal.classList.add("active"); document.body.style.overflow = "hidden"; }
+        function closeWhatsapp() { whatsappModal.classList.remove("active"); document.body.style.overflow = ""; }
+
+        if(whatsappTrigger) whatsappTrigger.addEventListener("click", openWhatsapp);
+        if(whatsappClose) whatsappClose.addEventListener("click", closeWhatsapp);
+        if(whatsappOverlay) whatsappOverlay.addEventListener("click", closeWhatsapp);
+
+        document.addEventListener("keydown", (e) => {
+            if(e.key === "Escape") { closeCall(); closeWhatsapp(); }
+        });
+    </script>
+
+</body>
+</html>
