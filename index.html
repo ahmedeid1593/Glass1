@@ -65,7 +65,7 @@
             letter-spacing: 2px;
         }
 
-        /* MAIN CONTAINER & BACKGROUND IMAGE (جاهزة أوتوloاتيك من النت) */
+        /* MAIN CONTAINER & BACKGROUND IMAGE */
         #content {
             width: 100%;
             max-width: 500px;
@@ -90,7 +90,7 @@
             content: "";
             position: fixed;
             inset: 0;
-            background: rgba(12, 16, 23, 0.85); /* طبقة تعتيم فخمة فوق الصورة عشان الكلام يظهر بوضوح */
+            background: rgba(12, 16, 23, 0.85);
             z-index: -1;
         }
 
@@ -161,6 +161,7 @@
             cursor: pointer;
             border-radius: 14px;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .action-card:hover {
@@ -227,7 +228,7 @@
             color: #6b7280;
         }
 
-        /* MODALS */
+        /* MODAL */
         .modal {
             position: fixed;
             inset: 0;
@@ -402,15 +403,15 @@
                     <i class="fa-solid fa-chevron-left arrow"></i>
                 </button>
 
-                <!-- 2. WHATSAPP -->
-                <button type="button" class="action-card" id="whatsappTrigger">
+                <!-- 2. WHATSAPP (Direct to 011 number) -->
+                <a href="https://wa.me/201158722476" target="_blank" rel="noopener noreferrer" class="action-card">
                     <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
                     <span>
                         <strong>تواصل عبر واتساب</strong>
-                        <small>اختر رقماً لمراسلتنا فوراً</small>
+                        <small>راسلنا مباشرة على الرقم 01158722476</small>
                     </span>
                     <i class="fa-solid fa-chevron-left arrow"></i>
-                </button>
+                </a>
 
                 <!-- 3. LOCATION -->
                 <a href="https://maps.app.goo.gl/z9L1qDV27npWpeS69" target="_blank" rel="noopener noreferrer" class="action-card">
@@ -435,15 +436,16 @@
             </div>
         </section>
 
-       <!-- FOOTER -->
+        <!-- FOOTER -->
         <footer>
-       
+            <p>شركة الإخلاص للنظارات</p>
             <span style="margin-top: 4px;">Made by Ahmed Eid</span>
             <a href="https://wa.me/201127248864" target="_blank" rel="noopener noreferrer" class="developer-phone" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; text-decoration: none;">
                 <i class="fa-brands fa-whatsapp" style="color: #d97706; font-size: 14px;"></i>
                 <span style="font-size: 11px; color: #9ca3af;">01127248864</span>
             </a>
         </footer>
+
     </main>
 
     <!-- CALL MODAL -->
@@ -476,36 +478,6 @@
         </div>
     </div>
 
-    <!-- WHATSAPP MODAL -->
-    <div id="whatsappModal" class="modal">
-        <div class="modal-overlay" id="whatsappOverlay"></div>
-        <div class="modal-box">
-            <button type="button" class="modal-close" id="whatsappClose"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-header">
-                <div class="modal-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                <h3>اختر الرقم للواتساب</h3>
-            </div>
-
-            <a href="https://wa.me/201060050026" target="_blank" rel="noopener noreferrer" class="modal-item">
-                <div class="modal-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                <div class="modal-item-info">
-                    <strong>الرقم الأول (واتساب)</strong>
-                    <span>01060050026</span>
-                </div>
-                <div class="modal-btn-action" style="background: #25d366; border-color: #25d366;">مراسلة</div>
-            </a>
-
-            <a href="https://wa.me/201158722476" target="_blank" rel="noopener noreferrer" class="modal-item">
-                <div class="modal-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                <div class="modal-item-info">
-                    <strong>الرقم الثاني (واتساب)</strong>
-                    <span>01158722476</span>
-                </div>
-                <div class="modal-btn-action" style="background: #25d366; border-color: #25d366;">مراسلة</div>
-            </a>
-        </div>
-    </div>
-
     <!-- SCRIPT -->
     <script>
         window.addEventListener("load", () => {
@@ -530,20 +502,8 @@
         if(callClose) callClose.addEventListener("click", closeCall);
         if(callOverlay) callOverlay.addEventListener("click", closeCall);
 
-        const whatsappTrigger = document.getElementById("whatsappTrigger");
-        const whatsappModal = document.getElementById("whatsappModal");
-        const whatsappClose = document.getElementById("whatsappClose");
-        const whatsappOverlay = document.getElementById("whatsappOverlay");
-
-        function openWhatsapp() { whatsappModal.classList.add("active"); document.body.style.overflow = "hidden"; }
-        function closeWhatsapp() { whatsappModal.classList.remove("active"); document.body.style.overflow = ""; }
-
-        if(whatsappTrigger) whatsappTrigger.addEventListener("click", openWhatsapp);
-        if(whatsappClose) whatsappClose.addEventListener("click", closeWhatsapp);
-        if(whatsappOverlay) whatsappOverlay.addEventListener("click", closeWhatsapp);
-
         document.addEventListener("keydown", (e) => {
-            if(e.key === "Escape") { closeCall(); closeWhatsapp(); }
+            if(e.key === "Escape") { closeCall(); }
         });
     </script>
 
